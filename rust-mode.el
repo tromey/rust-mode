@@ -11,7 +11,8 @@
 ;;; Code:
 
 (eval-when-compile (require 'misc)
-                   (require 'rx))
+                   (require 'rx)
+                   (require 'compile))
 
 ;; for GNU Emacs < 24.3
 (eval-when-compile
@@ -368,6 +369,9 @@
              ("use" . font-lock-type-face)
              ("fn" . font-lock-function-name-face)
              ("static" . font-lock-constant-face)))))
+
+(defvar font-lock-beg)
+(defvar font-lock-end)
 
 (defun rust-extend-region-raw-string ()
   "Extend the region given by `font-lock-beg' and `font-lock-end'
