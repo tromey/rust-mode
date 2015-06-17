@@ -1148,6 +1148,17 @@ this_is_not_a_string();)"
    "\"/*! doc */\""
    '("\"/*! doc */\"" font-lock-string-face)))
 
+(ert-deftest font-lock-extend-region-in-string ()
+  (with-temp-buffer
+    (rust-mode)
+    (insert "const BOO:&str = r#\"ZZZZ\"#;")
+    (goto-char 24)
+    (should (looking-at "Z"))
+    (let ((font-lock-beg (point))
+	  (font-lock-end (point)))
+      (rust-extend-region-raw-string)
+      (should (equal font-lock-beg 18))
+      (should (equal font-lock-end 27)))))
 
 (ert-deftest indent-method-chains-no-align ()
   (let ((rust-indent-method-chain nil)) (test-indent

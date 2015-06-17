@@ -378,10 +378,11 @@
          (orig-end font-lock-end)
          (beg-ppss (syntax-ppss font-lock-beg))
          (beg-in-str (nth 3 beg-ppss))
+         (str-beg (nth 8 beg-ppss))
          (end-ppss (syntax-ppss font-lock-end))
          (end-in-str (nth 3 end-ppss)))
     
-    (when (and beg-in-str (> font-lock-beg (nth 8 beg-ppss)))
+    (when (and beg-in-str (> font-lock-beg str-beg))
       (setq font-lock-beg str-beg)
       (while (equal ?# (char-before font-lock-beg))
         (setq font-lock-beg (1- font-lock-beg)))
