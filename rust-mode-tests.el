@@ -577,6 +577,25 @@ fn foo() {
 "
    ))
 
+(ert-deftest indent-trailing-paren ()
+  (test-indent
+   "
+let x = call(
+    y,
+    z
+);
+"
+   ))
+
+(ert-deftest indent-trailing-square-bracket ()
+  (test-indent
+   "
+let x = [a,
+         b
+];
+"
+   ))
+
 (setq rust-test-motion-string
       "
 fn fn1(arg: int) -> bool {

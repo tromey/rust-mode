@@ -230,7 +230,7 @@
                      (+ baseline rust-indent-offset))))
 
               ;; A closing brace is 1 level unindented
-              ((looking-at "}") (- baseline rust-indent-offset))
+              ((looking-at "[]})]") (- baseline rust-indent-offset))
 
               ;; Doc comments in /** style with leading * indent to line up the *s
               ((and (nth 4 (syntax-ppss)) (looking-at "*"))
