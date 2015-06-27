@@ -1,6 +1,6 @@
 ;;; rust-mode.el --- A major emacs mode for editing Rust source code -*-lexical-binding: t-*-
 
-;; Version: 0.2.0
+;; Version: 0.3.0
 ;; Author: Mozilla
 ;; Url: https://github.com/rust-lang/rust-mode
 ;; Keywords: languages
@@ -53,11 +53,12 @@
   :group 'rust-mode
   :safe #'integerp)
 
-(defcustom rust-indent-method-chain nil
+(defcustom rust-indent-method-chain t
   "Indent Rust method chains, aligned by the '.' operators"
   :type 'boolean
   :group 'rust-mode
-  :safe #'booleanp)
+  :safe #'booleanp
+  :package-version '(rust-mode . "0.3.0"))
 
 (defcustom rust-playpen-url-format "https://play.rust-lang.org/?code=%s"
   "Format string to use when submitting code to the playpen"
