@@ -1561,6 +1561,17 @@ See `compilation-error-regexp-alist' for help on their format.")
                  (point))))
           (set-window-start (selected-window) start-of-error))))))
 
+;; We do this via bug-reference mode because
+;; compilation-error-regexp-alist doesn't provide a way to fontify
+;; some text while not recognizing it as an error.
+(defun rustc-linkify-error-numbers ()
+  (require 'bug-reference)
+  ;; The second match has to be the bug reference.
+  (setq-local bug-reference-bug-regexp "^\\(error\\)\\[\\(E[0-9]+\\)\\]")
+  (setq-local bug-reference-url-format
+	      "https://doc.rust-lang.org/error-index.html#%s")
+  (bug-reference-mode))
+
 (eval-after-load 'compile
   '(progn
      (add-to-list 'compilation-error-regexp-alist-alist
@@ -1572,7 +1583,8 @@ See `compilation-error-regexp-alist' for help on their format.")
      (add-to-list 'compilation-error-regexp-alist 'rustc)
      (add-to-list 'compilation-error-regexp-alist-alist
                   (cons 'cargo cargo-compilation-regexps))
-     (add-to-list 'compilation-error-regexp-alist 'cargo)))
+     (add-to-list 'compilation-error-regexp-alist 'cargo)
+     (add-hook 'compilation-mode-hook #'rustc-linkify-error-numbers)))
 
 ;;; Functions to submit (parts of) buffers to the rust playpen, for
 ;;; sharing.
